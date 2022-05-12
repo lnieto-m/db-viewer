@@ -34,7 +34,7 @@ function Header() {
                             objectFit: 'contain'
                         }}
                         component="img"
-                        src={'/kroniicopter-helicopter.gif'} 
+                        src={'/db-viewer/kroniicopter-helicopter.gif'} 
                         alt="kroniicopter"
                     />
                 <Typography
