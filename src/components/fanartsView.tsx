@@ -39,7 +39,7 @@ function Fanarts(props: props) {
     <ImageList
         sx={{
             width: 1020,
-            height: 700,
+            height: 575,
             margin: 'auto',
             marginTop: '0.5em',
             marginBottom: '0.5em',
