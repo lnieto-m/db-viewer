@@ -94,7 +94,7 @@ function Fanarts(props: props) {
                                 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
                                 'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
                         }}
-                        title={`@${item.author} -- Posted: ${new Date(item.postDate).toUTCString()}`}
+                        title={<a style={{ textDecoration: 'none', color: 'white'}} href={`https://www.twitter.com/${item.author}`}>{`@${item.author} -- Posted: ${new Date(item.postDate).toUTCString()}`}</a>}
                         position="top"
                         actionIcon={
                             <IconButton
