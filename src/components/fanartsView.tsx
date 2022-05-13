@@ -76,12 +76,17 @@ function Fanarts(props: props) {
             return (<ImageListItem key={item.url} cols={1} rows={1}>
                 <Box
                     onClick={(e) => { handleOpen(item.url) }}
+                    onError={({ currentTarget }) => {
+                        currentTarget.onerror = null;
+                        currentTarget.src = "/db-viewer/404.png"
+                    }}
                     component='img'
                     sx={{
                         width: '100%',
                         height: '100%',
                         objectFit: 'cover',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        backgroundColor: 'black'
                     }}
                     alt={item.author}
                     src={item.url}
