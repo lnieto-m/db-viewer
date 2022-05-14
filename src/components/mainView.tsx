@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 import mainViewReducer, { initialState } from '../reducer/mainViewReducer';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { Box, Container, createTheme, TextField, ThemeProvider } from '@mui/material';
+import { Box, Container, createTheme, TextField, ThemeProvider, Typography } from '@mui/material';
 import list from './tagList.json';
 import axios from 'axios';
 import Fanarts, { Fanart } from './fanartsView';
@@ -73,9 +73,6 @@ function MainView() {
                 padding: '1em',
                 color: '#d4d5d5'
             }}>
-                
-
-                
                 <Stack spacing={1} direction="row" alignItems='center' justifyContent="center">
                     <Button color="primary" disabled={state.loading} variant={!state.filters.inart ? "outlined" : "contained"} id='inart' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #inart</Button>
                     <Button color="primary" disabled={state.loading} variant={!state.filters.callillust ? "outlined" : "contained"} id='callillust' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #callillust</Button>
@@ -138,7 +135,16 @@ function MainView() {
                 {state.firstLoaded
                     ? <>{fanartList.length > 0
                         ? <Fanarts entryList={fanartList}/>
-                        : <> Nothing to see here... </>
+                        : <Container sx={{ justifyContent: 'center' }}> 
+                            <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ color: '#d4d5d5', paddingTop: '48px'}}
+                            >
+                                Nothing to see here...
+                            </Typography> 
+                        </Container>
                         }</>
                     : <></>
                 }
