@@ -6,13 +6,13 @@ function Footer() {
         sx={{
             width: '100%',
             height: 32,
-            backgroundColor: '#42444b'
+            backgroundColor: '#202225'
         }}
     >
         <div style={{
             padding: 8,
             fontFamily: 'monospace',
-            color: 'white'
+            color: '#d4d5d5'
         }}>
             ©2022 - Made with React and MaterialUI
         </div>

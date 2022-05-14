@@ -7,7 +7,15 @@ import Footer from './components/footer';
 
 function App() {
 	return (
-		<div className="App" style={{ flexDirection: 'column', display: 'flex', minHeight: '100vh'}}>
+		<div
+			className="App"
+			style={{
+				flexDirection: 'column',
+				display: 'flex',
+				minHeight: '100vh',
+				backgroundColor: '#36383e'
+			}}
+		>
 			<Header />
 			<MainView />
 			<Footer />

@@ -25,6 +25,7 @@ function Header() {
     return(<Box>
         <AppBar
             position='static'
+            sx={{ backgroundColor: '#202225' }}
         >
             <Toolbar>
                 <Box sx={{ flexGrow: 1 }}/>
@@ -41,13 +42,13 @@ function Header() {
                     variant="h6"
                     noWrap
                     component="div"
-                    sx={{ marginLeft: '5px' }}
+                    sx={{ marginLeft: '5px', color: "#d4d5d5"}}
                 >
                     DBViewer
                 </Typography>
                 <Box sx={{ flexGrow: 1 }}/>
                 <IconButton onClick={handleClick}>
-                    <HelpOutlineIcon sx={{ color: 'white' }} />
+                    <HelpOutlineIcon sx={{ color: "#d4d5d5" }} />
                 </IconButton>
                 <Popover
                     id={id}
