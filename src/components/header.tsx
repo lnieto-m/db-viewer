@@ -64,7 +64,12 @@ function Header() {
                         horizontal: 'right'
                     }}
                 >
-                    Lorem ipsum
+                    <Typography sx={{ p: 2, maxWidth: '400px', backgroundColor: '#36383e', color: '#d4d5d5'}}>
+                        What is this ? <br />
+                        This page is meant to be a visual of my personnal fanarts database.
+                        Every entry of the database is a fanart posted on Twitter and saved automatically
+                        by my personnal bot if one of the displayed tags matched. <br />
+                    </Typography>
                 </Popover>
             </Toolbar>
         </AppBar>

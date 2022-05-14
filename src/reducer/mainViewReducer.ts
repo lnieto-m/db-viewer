@@ -57,10 +57,12 @@ export default function mainViewReducer(state = initialState, action: Action) {
             }
         }
         case 'setLoading': {
+            let firstLoadingState = state.firstLoaded;
+            if (action.payload as boolean === false) { firstLoadingState = true }
             return {
                 ...state,
                 loading: action.payload as boolean,
-                firstLoaded: true
+                firstLoaded: firstLoadingState
             }
         }
         default:
