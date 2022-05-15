@@ -130,7 +130,6 @@ function MainView() {
                 sx={{
                     display: 'flex'
                 }}
-                
             >
                 {state.firstLoaded
                     ? <>{fanartList.length > 0
