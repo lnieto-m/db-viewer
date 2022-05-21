@@ -9,7 +9,7 @@ export const initialState = {
         callillust : false,
         ameliart : false,
         gawrt : false,
-        artofashes : false,
+        artsofashes : false,
         irysart : false,
         kronillust : false,
         drawmei : false,
