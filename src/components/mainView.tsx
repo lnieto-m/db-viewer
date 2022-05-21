@@ -81,7 +81,7 @@ function MainView() {
 
                 </Stack>
                 <Stack spacing={1} direction="row" alignItems='center' justifyContent="center">
-                    <Button color="primary" disabled={state.loading} variant={!state.filters.artofashes ? "outlined" : "contained"} id='artofashes' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #artsofashes</Button>
+                    <Button color="primary" disabled={state.loading} variant={!state.filters.artsofashes ? "outlined" : "contained"} id='artofashes' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #artsofashes</Button>
                     <Button color="primary" disabled={state.loading} variant={!state.filters.irysart ? "outlined" : "contained"} id='irysart' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #irysart</Button>
                     <Button color="primary" disabled={state.loading} variant={!state.filters.kronillust ? "outlined" : "contained"} id='kronillust' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #kronillust</Button>
                     <Button color="primary" disabled={state.loading} variant={!state.filters.drawmei ? "outlined" : "contained"} id='drawmei' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #drawmei</Button>
