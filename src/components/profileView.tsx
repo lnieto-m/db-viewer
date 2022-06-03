@@ -78,12 +78,13 @@ function ProfileView() {
         sx={{
             flexGrow: 1,
             padding: '0px',
-            borderRight: '1px solid black',
-            borderLeft: '1px solid black'
+            borderRight: '1px solid #2a2b30',
+            borderLeft: '1px solid #2a2b30'
         }}
     >
         <ThemeProvider theme={PrimaryTheme}>
             <Autocomplete
+                sx={{ margin: '12px 12px 0px 12px'}}
                 id="test"
                 filterOptions={(x) => x}
                 options={options}
@@ -95,7 +96,7 @@ function ProfileView() {
             <Container disableGutters maxWidth='md' sx={{ display: 'flex'}}>
                 {profileInfo?
                     <Stack sx={{width: '100%'}} direction='column' spacing={2}>
-                        <Stack direction='row' spacing={1}>
+                        <Stack direction='row' spacing={1} sx={{padding: '12px 12px 0px 12px'}}>
                             <img
                                 style={{
                                     borderRadius: '50%',
@@ -127,7 +128,7 @@ function ProfileView() {
                                 </Typography>
                             </Stack>
                         </Stack>
-                        <Container disableGutters sx={{ display: 'flex', marginTop: 0 }}>
+                        <Container disableGutters sx={{ display: 'flex', marginTop: 0, borderTop: '1px solid #2a2b30'}}>
                             <Fanarts entryList={fanartList}/>
                         </Container>
                         </Stack>
