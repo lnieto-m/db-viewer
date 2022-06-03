@@ -3,9 +3,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { Popover } from '@mui/material';
+import { Button, Popover } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Header() {
 
@@ -47,6 +48,8 @@ function Header() {
                     DBViewer
                 </Typography>
                 <Box sx={{ flexGrow: 1 }}/>
+                <Button> <Link to="/db-viewer"> Tags </Link></Button>
+                <Button> <Link to="/db-viewer/profiles"> Profiles </Link></Button>
                 <IconButton onClick={handleClick}>
                     <HelpOutlineIcon sx={{ color: "#d4d5d5" }} />
                 </IconButton>

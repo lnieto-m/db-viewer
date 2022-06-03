@@ -1,9 +1,9 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import MainView from './components/mainView';
 import Header from './components/header';
 import Footer from './components/footer';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import ProfileView from './components/profileView';
 
 function App() {
 	return (
@@ -16,9 +16,15 @@ function App() {
 				backgroundColor: '#36383e'
 			}}
 		>
-			<Header />
-			<MainView />
-			<Footer />
+			<BrowserRouter>
+				<Header />
+				<Routes>
+					<Route path='/db-viewer' element={<MainView />} />
+					<Route path='/db-viewer/profiles' element={<ProfileView />} />
+				</Routes>
+				<Footer />
+			</BrowserRouter>
+			{/* <MainView /> */}
 		</div>
 	);
 }

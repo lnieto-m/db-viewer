@@ -5,45 +5,12 @@ import Stack from '@mui/material/Stack';
 import mainViewReducer, { initialState } from '../reducer/mainViewReducer';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { Box, Container, createTheme, TextField, ThemeProvider, Typography } from '@mui/material';
+import { Container, TextField, ThemeProvider, Typography } from '@mui/material';
 import list from './tagList.json';
 import axios from 'axios';
 import Fanarts, { Fanart } from './fanartsView';
 import SendIcon from '@mui/icons-material/Send';
-
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: "#d4d5d5"
-        },
-        secondary: {
-            main: "#d4d5d5"
-        }
-    },
-    components: {
-        MuiIconButton: {
-          styleOverrides: {
-            sizeMedium: {
-              color: "#d4d5d5"
-            }
-          }
-        },
-        MuiOutlinedInput: {
-          styleOverrides: {
-            root: {
-              color: "#d4d5d5"
-            }
-          }
-        },
-        MuiInputLabel: {
-          styleOverrides: {
-            root: {
-              color: "#d4d5d5"
-            }
-          }
-        }
-      }
-})
+import PrimaryTheme from '../utils/themes';
 
 function MainView() {
 
@@ -56,7 +23,7 @@ function MainView() {
             if (state.filters[key] === true) { tags.push(list[key]) }
         })
         dispatch({ type: 'setLoading', payload: true});
-        const resp = await axios.get('https://fanart-bot.herokuapp.com/getFanarts', {
+        const resp = await axios.get('https://fanart-bot.herokuapp.com/Fanarts', {
             params: {
                 startDate: state.dates.startDate,
                 endDate: state.dates.endDate,
@@ -68,7 +35,7 @@ function MainView() {
     }
 
     return (<Container maxWidth='lg' sx={{ flexGrow: 1}}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={PrimaryTheme}>
             <Container sx={{
                 padding: '1em',
                 color: '#d4d5d5'
