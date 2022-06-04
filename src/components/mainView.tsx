@@ -101,7 +101,7 @@ function MainView() {
             >
                 {state.firstLoaded
                     ? <>{fanartList.length > 0
-                        ? <Fanarts entryList={fanartList}/>
+                        ? <Fanarts entryList={fanartList} profilePage={false} />
                         : <Container sx={{ justifyContent: 'center' }}> 
                             <Typography
                             variant="h6"

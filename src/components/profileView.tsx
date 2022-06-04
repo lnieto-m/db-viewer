@@ -133,7 +133,7 @@ function ProfileView() {
                             </Stack>
                         </Stack>
                         <Container disableGutters sx={{ display: 'flex', marginTop: 0, borderTop: '1px solid #2a2b30'}}>
-                            <Fanarts entryList={fanartList}/>
+                            <Fanarts entryList={fanartList} profilePage />
                         </Container>
                         </Stack>
                     :<></>

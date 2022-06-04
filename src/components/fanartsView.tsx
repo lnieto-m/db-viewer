@@ -14,6 +14,7 @@ export interface Fanart {
 
 interface props {
     entryList: Fanart[];
+    profilePage: boolean;
 }
 
 function Fanarts(props: props) {
@@ -34,6 +35,13 @@ function Fanarts(props: props) {
         const name = url.split('/');
         saveAs(url, name[name.length - 1]);
     }
+
+    const setTitle = function(item: Fanart): string {
+        let title: string = "";
+        if (!props.profilePage) { title += `@${item.author} -- `}
+        title += `Posted: ${new Date(item.postDate).toUTCString()}`;
+        return title;
+    } 
 
     return(
     <ImageList
@@ -61,7 +69,6 @@ function Fanarts(props: props) {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     boxShadow: 24,
-                    p: 4,
                     maxWidth: '90%',
                     maxHeight: '90%'
                 }}
@@ -91,14 +98,14 @@ function Fanarts(props: props) {
                     src={item.url}
                     loading="lazy"
                 />
-                <div title={`@${item.author} -- Posted: ${new Date(item.postDate).toUTCString()}`}>
+                <div title={setTitle(item)}>
                     <ImageListItemBar
                         sx={{
                             background:
                                 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
                                 'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
                         }}
-                        title={<a style={{ textDecoration: 'none', color: 'white'}} href={`https://www.twitter.com/${item.author}`}>{`@${item.author} -- Posted: ${new Date(item.postDate).toUTCString()}`}</a>}
+                        title={<a style={{ textDecoration: 'none', color: 'white'}} href={`https://www.twitter.com/${item.author}`}>{setTitle(item)}</a>}
                         position="top"
                         actionIcon={
                             <IconButton
