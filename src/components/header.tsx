@@ -29,8 +29,9 @@ function Header() {
             sx={{ backgroundColor: '#202225' }}
         >
             <Toolbar>
-                <Box sx={{ flexGrow: 1 }}/>
-                <Box
+                <Box sx={{ flexGrow: 1, width: "170px"}}/>
+                <div style={{ display: 'contents'}}>
+                    <Box
                         sx={{
                             height: 48,
                             objectFit: 'contain'
@@ -39,17 +40,18 @@ function Header() {
                         src={'/db-viewer/kroniicopter-helicopter.gif'} 
                         alt="kroniicopter"
                     />
-                <Typography
-                    variant="h6"
-                    noWrap
-                    component="div"
-                    sx={{ marginLeft: '5px', color: "#d4d5d5"}}
-                >
-                    DBViewer
-                </Typography>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ marginLeft: '5px', color: "#d4d5d5"}}
+                    >
+                        DBViewer
+                    </Typography>
+                </div>
                 <Box sx={{ flexGrow: 1 }}/>
-                <Button> <Link to="/db-viewer"> Tags </Link></Button>
-                <Button> <Link to="/db-viewer/profiles"> Profiles </Link></Button>
+                <Button> <Link style={{ textDecoration: "none", color: "#d4d5d5"}} to="/db-viewer"> Tags </Link></Button>
+                <Button> <Link style={{ textDecoration: "none", color: "#d4d5d5"}} to="/db-viewer/profiles"> Profiles </Link></Button>
                 <IconButton onClick={handleClick}>
                     <HelpOutlineIcon sx={{ color: "#d4d5d5" }} />
                 </IconButton>
