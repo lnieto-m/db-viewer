@@ -1,7 +1,8 @@
 import { Container, Autocomplete, TextField, Typography, Stack, ThemeProvider } from "@mui/material";
 import axios from "axios";
-import throttle from "lodash.throttle";
+import debounce from "lodash.debounce";
 import { useEffect, useMemo, useState } from "react";
+import FollowerCount from "../utils/metricCountFormatter";
 import PrimaryTheme from "../utils/themes";
 import Fanarts, { Fanart } from "./fanartsView";
 
@@ -45,23 +46,23 @@ function ProfileView() {
         setOptions(resp.data);
     }
 
-    const throttledRequest = useMemo(
-        () => throttle(requestOptions, 500),
+    const debouncedRequest = useMemo(
+        () => debounce(requestOptions, 500),
         [value]
     )
 
     useEffect(() => {
         return () => {
-            throttledRequest.cancel();
+            debouncedRequest.cancel();
         }
-    }, []);
+    }, [debouncedRequest]);
 
     const inputChangeHandler = async (event, inputValue: string) => {
         setValue(inputValue);
         if (value.length >= 3) { 
-            throttledRequest(value);
+            debouncedRequest(value);
         } else {
-            throttledRequest.cancel();
+            debouncedRequest.cancel();
             setOptions([]);
         }
     }
@@ -125,6 +126,9 @@ function ProfileView() {
                                 </Typography>
                                 <Typography sx={{ textAlign: 'left' , color: PrimaryTheme.palette.primary.main}} >
                                     {profileInfo.description}
+                                </Typography>
+                                <Typography sx={{ textAlign: 'left' , color: PrimaryTheme.palette.primary.main}} >
+                                    <FollowerCount count={profileInfo.public_metrics.followers_count} />
                                 </Typography>
                             </Stack>
                         </Stack>
