@@ -95,7 +95,8 @@ function MainView() {
 
             <Container
                 sx={{
-                    display: 'flex'
+                    display: 'flex',
+                    paddingTop: '0.5em'
                 }}
             >
                 {state.firstLoaded

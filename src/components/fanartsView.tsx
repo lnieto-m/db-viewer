@@ -41,7 +41,6 @@ function Fanarts(props: props) {
             width: 1020,
             height: 575,
             margin: 'auto',
-            marginTop: '0.5em',
             marginBottom: '0.5em',
             transform: 'translateZ(0)'
         }}
