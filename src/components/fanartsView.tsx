@@ -62,21 +62,25 @@ function Fanarts(props: props) {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box
-                sx={{
-                    position: 'absolute' as 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    boxShadow: 24,
-                    maxWidth: '90%',
-                    maxHeight: '90%'
-                }}
-                component="img"
-                alt={modalLink}
-                src={modalLink}
-            >
-            </Box>
+
+            <>
+                <Box
+                    sx={{
+                        position: 'absolute' as 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        boxShadow: 24,
+                        maxWidth: '90%',
+                        maxHeight: '90%'
+                    }}
+                    component="img"
+                    onClick={() => window.open(modalLink, '_blanck').focus()}
+                    alt={modalLink}
+                    src={modalLink}
+                >
+                </Box>
+            </>
         </Modal>
         {props.entryList.map((item) => {
             return (<ImageListItem key={item.url} cols={1} rows={1}>
