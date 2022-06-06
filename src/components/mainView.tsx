@@ -11,6 +11,8 @@ import axios from 'axios';
 import Fanarts, { Fanart } from './fanartsView';
 import SendIcon from '@mui/icons-material/Send';
 import PrimaryTheme from '../utils/themes';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function MainView() {
 
@@ -40,6 +42,12 @@ function MainView() {
                 padding: '1em',
                 color: '#d4d5d5'
             }}>
+                <Backdrop
+                    open={state.loading}
+                    sx={{ zIndex: 3}}
+                >
+                    <CircularProgress sx={{ color: 'white' }}/>
+                </Backdrop>
                 <Stack spacing={1} direction="row" alignItems='center' justifyContent="center">
                     <Button color="primary" disabled={state.loading} variant={!state.filters.inart ? "outlined" : "contained"} id='inart' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #inart</Button>
                     <Button color="primary" disabled={state.loading} variant={!state.filters.callillust ? "outlined" : "contained"} id='callillust' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #callillust</Button>

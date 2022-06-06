@@ -1,5 +1,5 @@
 import { LineAxisOutlined } from "@mui/icons-material";
-import { Container, Autocomplete, TextField, Typography, Stack, ThemeProvider } from "@mui/material";
+import { Container, Autocomplete, TextField, Typography, Stack, ThemeProvider, AutocompleteChangeReason } from "@mui/material";
 import axios from "axios";
 import { profile } from "console";
 import debounce from "lodash.debounce";
@@ -11,6 +11,8 @@ import Fanarts, { Fanart } from "./fanartsView";
 import '../styles/profileView.css';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkIcon from '@mui/icons-material/Link';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface ProfileInfo {
     username: string;
@@ -33,9 +35,11 @@ function ProfileView() {
     const [inputValue, setInputValue] = useState<string>('');
     const [fanartList, setFanartList] = useState<Fanart[]>([]);
     const [profileInfo, setProfileInfo] = useState<ProfileInfo>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const requestFanartList = async (query: string) => {
         try {
+            setLoading(true);
             const resp = await axios.get('https://fanart-bot.herokuapp.com/User', {
                 params: {
                     username: query
@@ -47,6 +51,7 @@ function ProfileView() {
             }
             setProfileInfo(resp.data.userData);
             setFanartList(resp.data.fanartList);
+            setLoading(false);
         } catch (e) {
             console.error(e);
         }
@@ -85,9 +90,9 @@ function ProfileView() {
         }
     }
 
-    const handleKeydown = async (event: React.KeyboardEvent) => {
-        if (event.key !== 'Enter') return;
-        await requestFanartList(inputValue);
+    const handleSelect = async (event: React.SyntheticEvent<Element, Event>, value: string, reason: AutocompleteChangeReason) => {
+        if (reason !== 'selectOption') return;
+        await requestFanartList(value);
     }
 
     return (
@@ -108,12 +113,19 @@ function ProfileView() {
                 filterOptions={(x) => x}
                 options={options}
                 color='primary'
-                // value={value}
+                disabled={loading}
                 onInputChange={inputChangeHandler}
-                onKeyDown={(e) => handleKeydown(e)}
+                includeInputInList
+                onChange ={handleSelect}
                 renderInput={(params) => <TextField {...params} label="Username" fullWidth/>}
             />
             <Container disableGutters maxWidth='md' sx={{ display: 'flex'}}>
+                <Backdrop
+                    open={loading}
+                    sx={{ zIndex: 3}}
+                >
+                    <CircularProgress sx={{ color: 'white' }} />
+                </Backdrop>
                 {profileInfo?
                     <Stack sx={{width: '100%'}} direction='column' spacing={2}>
                         <Stack direction='row' spacing={1} sx={{padding: '12px 12px 0px 12px'}}>
