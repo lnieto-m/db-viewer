@@ -13,6 +13,7 @@ async function ResolveTwitterShortURL(link: string) {
         return match;
     } catch (e) {
         console.error(e);
+        return link;
     }
 } 
 

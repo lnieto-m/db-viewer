@@ -3,7 +3,7 @@ import { Container, Autocomplete, TextField, Typography, Stack, ThemeProvider } 
 import axios from "axios";
 import { profile } from "console";
 import debounce from "lodash.debounce";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import FollowerCount from "../utils/metricCountFormatter";
 import ResolveShortURL from "../utils/shortURLResolver";
 import PrimaryTheme from "../utils/themes";
@@ -30,49 +30,55 @@ interface ProfileInfo {
 function ProfileView() {
 
     const [options, setOptions] = useState<string[]>([]);
-    const [value, setValue] = useState<string>('');
+    const [inputValue, setInputValue] = useState<string>('');
     const [fanartList, setFanartList] = useState<Fanart[]>([]);
     const [profileInfo, setProfileInfo] = useState<ProfileInfo>(null);
 
     const requestFanartList = async (query: string) => {
-        const resp = await axios.get('https://fanart-bot.herokuapp.com/User', {
-            params: {
-                username: query
+        try {
+            const resp = await axios.get('https://fanart-bot.herokuapp.com/User', {
+                params: {
+                    username: query
+                }
+            });
+            if (resp.data.userData.url) {
+                const urlDecoded = await ResolveShortURL(resp.data.userData.url);
+                resp.data.userData.url = urlDecoded;
             }
-        });
-        if (resp.data.userData.url) {
-            const urlDecoded = await ResolveShortURL(resp.data.userData.url);
-            resp.data.userData.url = urlDecoded;
+            setProfileInfo(resp.data.userData);
+            setFanartList(resp.data.fanartList);
+        } catch (e) {
+            console.error(e);
         }
-        setProfileInfo(resp.data.userData);
-        setFanartList(resp.data.fanartList);
+        
     }
 
     const requestOptions = async (query: string) => {
-        const resp = await axios.get('https://fanart-bot.herokuapp.com/UsersCompletion', {
-            params: {
-                username: query
-            }
-        });
-        setOptions(resp.data);
+        try {
+            const resp = await axios.get('https://fanart-bot.herokuapp.com/UsersCompletion', {
+                params: {
+                    username: query
+                }
+            });
+            setOptions(resp.data);
+        } catch (e) {
+            console.error(e);
+        }
     }
 
-    const debouncedRequest = useMemo(
-        () => debounce(requestOptions, 500),
-        [value]
-    )
+    const debouncedRequest = useMemo(() => debounce(value => requestOptions(value), 500), [inputValue]);
 
-    useEffect(() => {
-        return () => {
-            debouncedRequest.cancel();
-        }
-    }, [debouncedRequest]);
+    // useEffect(() => {
+    //     return () => {
+    //         debouncedRequest.cancel();
+    //     }
+    // }, [debouncedRequest]);
 
-    const inputChangeHandler = async (event, inputValue: string) => {
-        setValue(inputValue);
-        if (value.length >= 3) { 
-            // debouncedRequest(value);
-            requestOptions(value);
+    const inputChangeHandler = (event, inputValue: string) => {
+        setInputValue(inputValue);
+        if (inputValue.length >= 3) { 
+            debouncedRequest(inputValue);
+            // requestOptions(inputValue);
         } else {
             // debouncedRequest.cancel();
             setOptions([]);
@@ -81,7 +87,7 @@ function ProfileView() {
 
     const handleKeydown = async (event: React.KeyboardEvent) => {
         if (event.key !== 'Enter') return;
-        await requestFanartList(value);
+        await requestFanartList(inputValue);
     }
 
     return (
@@ -142,7 +148,10 @@ function ProfileView() {
                                 </Typography>
                                 <Typography sx={{ textAlign: 'left' , color: PrimaryTheme.palette.primary.main, display: 'flex', justifyContent: 'flex-start'}} >
                                     <TwitterIcon /><FollowerCount count={profileInfo.public_metrics.followers_count} />
-                                    <LinkIcon /><a className="profile-link" href={profileInfo.url}> {profileInfo.url.replace(/https:\/\/www.|https:\/\//g, '')} </a>
+                                    {profileInfo.url
+                                        ? <><LinkIcon /><a className="profile-link" href={profileInfo.url}> {profileInfo.url.replace(/https:\/\/www.|https:\/\//g, '')} </a></>
+                                        : <></>
+                                    }
                                 </Typography>
                             </Stack>
                         </Stack>
