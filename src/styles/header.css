@@ -1,0 +1,9 @@
+.link-header {
+    text-decoration: none;
+    width: 100%;
+    color: black;
+}
+
+.link-header:active {
+    text-decoration: none;
+}

@@ -3,17 +3,23 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { Button, Popover } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ImageSearchIcon from '@mui/icons-material/ImageSearch';
+import { Button, Popover, List, ListItem, ListItemButton, ListItemText, ListItemIcon } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Drawer from '@mui/material/Drawer';
+import '../styles/header.css';
 
 function Header() {
 
     const [anchorHelper, setAnchorHelper] = useState<HTMLButtonElement | null>(null);
+    const [drawerState, setDrawerState] = useState<boolean>(false);
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorHelper(event.currentTarget);
+    const handleClick = (target: HTMLButtonElement) => {
+        setAnchorHelper(target);
     }
 
     const handleClose = () => {
@@ -29,7 +35,7 @@ function Header() {
             sx={{ backgroundColor: '#202225' }}
         >
             <Toolbar>
-                <Box sx={{ flexGrow: 1, width: "170px"}}/>
+                <Box sx={{ flexGrow: 1, width: {xs: "0px", lg: "170px"} }}/>
                 <div style={{ display: 'contents'}}>
                     <Box
                         sx={{
@@ -50,9 +56,60 @@ function Header() {
                     </Typography>
                 </div>
                 <Box sx={{ flexGrow: 1 }}/>
-                <Button> <Link style={{ textDecoration: "none", color: "#d4d5d5"}} to="/db-viewer"> Tags </Link></Button>
-                <Button> <Link style={{ textDecoration: "none", color: "#d4d5d5"}} to="/db-viewer/profiles"> Profiles </Link></Button>
-                <IconButton onClick={handleClick}>
+                <IconButton sx={{ display: {xs: 'inline-flex', lg: 'none'} }}
+                    onClick={() => setDrawerState(true)}
+                    id="menu-button-drawer"
+                >
+                    <MenuIcon sx={{ color: "#d4d5d5" }} />
+                </IconButton>
+                <Drawer
+                    anchor='right'
+                    open={drawerState}
+                    onClose={()=> setDrawerState(false)}
+                    sx={{ color: '#202225' }}
+                >
+                    <Box
+                        sx={{ width: '250px' , height: '100%', backgroundColor: '#202225'}}
+                        role="presentation"
+                        onClick={() => setDrawerState(false)}
+                        onKeyDown={() => setDrawerState(false)}
+                    >
+                        <List>
+                            <ListItem key="Tags">
+                                <Link className='link-header' to="/db-viewer">
+                                    <ListItemButton sx={{ color: '#202225'}}>
+                                        <ListItemIcon>
+                                            <ImageSearchIcon sx={{ color: "#d4d5d5" }} />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ color: "#d4d5d5" }} primary="TAGS"/>
+                                    </ListItemButton>
+                                </Link>
+                            </ListItem>
+                            <ListItem key="Profiles" sx={{ textDecoration: 'none' }}>
+                                <Link className='link-header' to="/db-viewer/profiles">
+                                    <ListItemButton>
+                                        <ListItemIcon>
+                                            <AccountCircleIcon sx={{ color: "#d4d5d5" }} />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ color: "#d4d5d5" }} primary="PROFILES" />
+                                    </ListItemButton>
+                                </Link>
+                            </ListItem>
+                            <ListItem key="Help">
+                                <ListItemButton onClick={(e) => handleClick(document.getElementById("menu-button-drawer") as HTMLButtonElement)}>
+                                    <ListItemIcon>
+                                        <HelpOutlineIcon sx={{ color: "#d4d5d5" }} />
+                                    </ListItemIcon>
+                                    <ListItemText sx={{ color: "#d4d5d5" }} primary="About this"/>
+                                </ListItemButton>
+                            </ListItem>
+                        </List>
+                    </Box>
+                </Drawer>
+
+                <Button sx={{display: { xs: 'none', lg: 'inline-flex' }}}> <Link style={{ textDecoration: "none", color: "#d4d5d5"}} to="/db-viewer"> Tags </Link></Button>
+                <Button sx={{display: { xs: 'none', lg: 'inline-flex' }}}> <Link style={{ textDecoration: "none", color: "#d4d5d5"}} to="/db-viewer/profiles"> Profiles </Link></Button>
+                <IconButton onClick={(e) => handleClick(e.currentTarget)} sx={{display: { xs: 'none', lg: 'inline-flex' }}}>
                     <HelpOutlineIcon sx={{ color: "#d4d5d5" }} />
                 </IconButton>
                 <Popover

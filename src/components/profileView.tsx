@@ -71,9 +71,10 @@ function ProfileView() {
     const inputChangeHandler = async (event, inputValue: string) => {
         setValue(inputValue);
         if (value.length >= 3) { 
-            debouncedRequest(value);
+            // debouncedRequest(value);
+            requestOptions(value);
         } else {
-            debouncedRequest.cancel();
+            // debouncedRequest.cancel();
             setOptions([]);
         }
     }
@@ -101,6 +102,7 @@ function ProfileView() {
                 filterOptions={(x) => x}
                 options={options}
                 color='primary'
+                // value={value}
                 onInputChange={inputChangeHandler}
                 onKeyDown={(e) => handleKeydown(e)}
                 renderInput={(params) => <TextField {...params} label="Username" fullWidth/>}
