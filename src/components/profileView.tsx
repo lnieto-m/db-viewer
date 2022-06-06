@@ -1,15 +1,22 @@
+import { LineAxisOutlined } from "@mui/icons-material";
 import { Container, Autocomplete, TextField, Typography, Stack, ThemeProvider } from "@mui/material";
 import axios from "axios";
+import { profile } from "console";
 import debounce from "lodash.debounce";
 import { useEffect, useMemo, useState } from "react";
 import FollowerCount from "../utils/metricCountFormatter";
+import ResolveShortURL from "../utils/shortURLResolver";
 import PrimaryTheme from "../utils/themes";
 import Fanarts, { Fanart } from "./fanartsView";
+import '../styles/profileView.css';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import LinkIcon from '@mui/icons-material/Link';
 
 interface ProfileInfo {
     username: string;
     name: string;
     id: string;
+    url: string;
     description: string;
     public_metrics: {
         followers_count: number;
@@ -33,6 +40,10 @@ function ProfileView() {
                 username: query
             }
         });
+        if (resp.data.userData.url) {
+            const urlDecoded = await ResolveShortURL(resp.data.userData.url);
+            resp.data.userData.url = urlDecoded;
+        }
         setProfileInfo(resp.data.userData);
         setFanartList(resp.data.fanartList);
     }
@@ -127,8 +138,9 @@ function ProfileView() {
                                 <Typography sx={{ textAlign: 'left' , color: PrimaryTheme.palette.primary.main}} >
                                     {profileInfo.description}
                                 </Typography>
-                                <Typography sx={{ textAlign: 'left' , color: PrimaryTheme.palette.primary.main}} >
-                                    <FollowerCount count={profileInfo.public_metrics.followers_count} />
+                                <Typography sx={{ textAlign: 'left' , color: PrimaryTheme.palette.primary.main, display: 'flex', justifyContent: 'flex-start'}} >
+                                    <TwitterIcon /><FollowerCount count={profileInfo.public_metrics.followers_count} />
+                                    <LinkIcon /><a className="profile-link" href={profileInfo.url}> {profileInfo.url.replace(/https:\/\/www.|https:\/\//g, '')} </a>
                                 </Typography>
                             </Stack>
                         </Stack>

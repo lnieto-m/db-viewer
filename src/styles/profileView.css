@@ -1,0 +1,8 @@
+.profile-link {
+    text-decoration: none;
+    color: #3e93b4;
+}
+
+.profile-link:hover {
+    text-decoration: underline;
+}
