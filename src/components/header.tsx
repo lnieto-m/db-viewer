@@ -76,7 +76,7 @@ function Header() {
                     >
                         <List>
                             <ListItem key="Tags">
-                                <Link className='link-header' to="/db-viewer">
+                                <Link className='link-header' to="/">
                                     <ListItemButton sx={{ color: '#202225'}}>
                                         <ListItemIcon>
                                             <ImageSearchIcon sx={{ color: "#d4d5d5" }} />
@@ -86,7 +86,7 @@ function Header() {
                                 </Link>
                             </ListItem>
                             <ListItem key="Profiles" sx={{ textDecoration: 'none' }}>
-                                <Link className='link-header' to="/db-viewer/profiles">
+                                <Link className='link-header' to="/profiles">
                                     <ListItemButton>
                                         <ListItemIcon>
                                             <AccountCircleIcon sx={{ color: "#d4d5d5" }} />
@@ -107,8 +107,8 @@ function Header() {
                     </Box>
                 </Drawer>
 
-                <Button sx={{display: { xs: 'none', lg: 'inline-flex' }}}> <Link style={{ textDecoration: "none", color: "#d4d5d5"}} to="/db-viewer"> Tags </Link></Button>
-                <Button sx={{display: { xs: 'none', lg: 'inline-flex' }}}> <Link style={{ textDecoration: "none", color: "#d4d5d5"}} to="/db-viewer/profiles"> Profiles </Link></Button>
+                <Button sx={{display: { xs: 'none', lg: 'inline-flex' }}}> <Link style={{ textDecoration: "none", color: "#d4d5d5"}} to="/"> Tags </Link></Button>
+                <Button sx={{display: { xs: 'none', lg: 'inline-flex' }}}> <Link style={{ textDecoration: "none", color: "#d4d5d5"}} to="/profiles"> Profiles </Link></Button>
                 <IconButton onClick={(e) => handleClick(e.currentTarget)} sx={{display: { xs: 'none', lg: 'inline-flex' }}}>
                     <HelpOutlineIcon sx={{ color: "#d4d5d5" }} />
                 </IconButton>

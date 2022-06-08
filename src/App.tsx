@@ -2,7 +2,7 @@ import './App.css';
 import MainView from './components/mainView';
 import Header from './components/header';
 import Footer from './components/footer';
-import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Router, Routes, Route, HashRouter} from 'react-router-dom';
 import ProfileView from './components/profileView';
 
 function App() {
@@ -16,14 +16,16 @@ function App() {
 				backgroundColor: '#36383e'
 			}}
 		>
-			<BrowserRouter>
-				<Header />
-				<Routes>
-					<Route path='/db-viewer' element={<MainView />} />
-					<Route path='/db-viewer/profiles' element={<ProfileView />} />
-				</Routes>
-				<Footer />
-			</BrowserRouter>
+			<HashRouter>
+				<>
+					<Header />
+					<Routes>
+						<Route path='/' element={<MainView />} />
+						<Route path='/profiles' element={<ProfileView />} />
+					</Routes>
+					<Footer />
+				</>
+			</HashRouter>
 			{/* <MainView /> */}
 		</div>
 	);
