@@ -9,5 +9,10 @@
     "drawmei" : "Mumei",
     "illustraybae" : "Bae",
     "galaxillust" : "Sana",
-    "finefaunart": "Fauna" 
+    "finefaunart": "Fauna" ,
+    "display": [
+        ["inart", "callillust", "ameliart", "gawrt"],
+        ["artofashes", "irysart", "kronillust", "drawmei"],
+        ["illustraybae", "galaxillust", "finefaunart"]
+    ]
 }

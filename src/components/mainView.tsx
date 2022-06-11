@@ -48,24 +48,23 @@ function MainView() {
                 >
                     <CircularProgress sx={{ color: 'white' }}/>
                 </Backdrop>
-                <Stack spacing={1} direction="row" alignItems='center' justifyContent="center">
-                    <Button color="primary" disabled={state.loading} variant={!state.filters.inart ? "outlined" : "contained"} id='inart' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #inart</Button>
-                    <Button color="primary" disabled={state.loading} variant={!state.filters.callillust ? "outlined" : "contained"} id='callillust' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #callillust</Button>
-                    <Button color="primary" disabled={state.loading} variant={!state.filters.ameliart ? "outlined" : "contained"} id='ameliart' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #ameliart</Button>
-                    <Button color="primary" disabled={state.loading} variant={!state.filters.gawrt ? "outlined" : "contained"} id='gawrt' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #gawrt</Button>
-
-                </Stack>
-                <Stack spacing={1} direction="row" alignItems='center' justifyContent="center">
-                    <Button color="primary" disabled={state.loading} variant={!state.filters.artsofashes ? "outlined" : "contained"} id='artsofashes' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #artsofashes</Button>
-                    <Button color="primary" disabled={state.loading} variant={!state.filters.irysart ? "outlined" : "contained"} id='irysart' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #irysart</Button>
-                    <Button color="primary" disabled={state.loading} variant={!state.filters.kronillust ? "outlined" : "contained"} id='kronillust' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #kronillust</Button>
-                    <Button color="primary" disabled={state.loading} variant={!state.filters.drawmei ? "outlined" : "contained"} id='drawmei' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #drawmei</Button>
-                </Stack>
-                <Stack spacing={1} direction="row" alignItems='center' justifyContent="center">
-                    <Button color="primary" disabled={state.loading} variant={!state.filters.illustraybae ? "outlined" : "contained"} id='illustraybae' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #illustraybae</Button>
-                    <Button color="primary" disabled={state.loading} variant={!state.filters.galaxillust ? "outlined" : "contained"} id='galaxillust' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #galaxillust</Button>
-                    <Button color="primary" disabled={state.loading} variant={!state.filters.finefaunart ? "outlined" : "contained"} id='finefaunart' onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id})}> #finefaunart</Button>
-                </Stack>
+                {list.display.map((itemRowList, index) => {
+                    return (<Stack id={`tag-row-${index}`} key={`tag-row-${index}`} spacing={1} direction="row" alignItems='center' justifyContent="center">
+                        {itemRowList.map((tagName) => {
+                            return (
+                                <Button color="primary"
+                                    disabled={state.loading}
+                                    variant={!state.filters[tagName] ? "outlined" : "contained"}
+                                    id={tagName}
+                                    key={tagName}
+                                    onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id}
+                                    )}>
+                                        #{tagName}
+                                    </Button>
+                            );
+                        })}
+                    </Stack>);
+                })}
             </Container>
 
             <Stack spacing={1} direction={"row"} alignItems='center' justifyContent="center" sx={{ padding: '0.4em'}}>
