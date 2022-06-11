@@ -1,9 +1,7 @@
-import { LineAxisOutlined } from "@mui/icons-material";
 import { Container, Autocomplete, TextField, Typography, Stack, ThemeProvider, AutocompleteChangeReason } from "@mui/material";
 import axios from "axios";
-import { profile } from "console";
 import debounce from "lodash.debounce";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import FollowerCount from "../utils/metricCountFormatter";
 import ResolveShortURL from "../utils/shortURLResolver";
 import PrimaryTheme from "../utils/themes";
@@ -84,9 +82,7 @@ function ProfileView() {
         setInputValue(inputValue);
         if (inputValue.length >= 3) { 
             debouncedRequest(inputValue);
-            // requestOptions(inputValue);
         } else {
-            // debouncedRequest.cancel();
             setOptions([]);
         }
     }

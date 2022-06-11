@@ -8,7 +8,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import { Button, Popover, List, ListItem, ListItemButton, ListItemText, ListItemIcon } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Drawer from '@mui/material/Drawer';
 import '../styles/header.css';
