@@ -13,6 +13,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkIcon from '@mui/icons-material/Link';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Box } from '@mui/system';
 
 interface ProfileInfo {
     username: string;
@@ -128,12 +129,14 @@ function ProfileView() {
                 </Backdrop>
                 {profileInfo?
                     <Stack sx={{width: '100%'}} direction='column' spacing={2}>
-                        <Stack direction='row' spacing={1} sx={{padding: '12px 12px 0px 12px'}}>
-                            <img
-                                style={{
+                        <Stack direction={{xs: 'column', lg: 'row'}} spacing={1} sx={{padding: '12px 12px 0px 12px'}}>
+                            <Box
+                                component="img"
+                                sx={{
                                     borderRadius: '50%',
                                     width: '134px',
                                     height: '134px',
+                                    margin: { xs: 'auto', lg:0}
                                 }}
                                 src={profileInfo.profile_image_url.replace('normal', '400x400')}
                                 alt="Profile picture"
@@ -143,22 +146,22 @@ function ProfileView() {
                                     variant="h4"
                                     noWrap
                                     component="div"
-                                    sx={{ textAlign: 'left', color: PrimaryTheme.palette.primary.main }}
+                                    sx={{ textAlign: {xs: 'center', lg: 'left'}, color: PrimaryTheme.palette.primary.main }}
                                 >
                                     {profileInfo.name}
                                 </Typography>
                                 <Typography
                                     variant="h6"
                                     noWrap
-                                    sx={{ textAlign: 'left', color: PrimaryTheme.palette.primary.main }}
+                                    sx={{ textAlign: {xs: 'center', lg: 'left'}, color: PrimaryTheme.palette.primary.main }}
                                     component="div"
                                 >
                                     @{profileInfo.username}
                                 </Typography>
-                                <Typography sx={{ textAlign: 'left' , color: PrimaryTheme.palette.primary.main}} >
+                                <Typography sx={{ textAlign: {xs: 'center', lg: 'left'}, color: PrimaryTheme.palette.primary.main}} >
                                     {profileInfo.description}
                                 </Typography>
-                                <Typography sx={{ textAlign: 'left' , color: PrimaryTheme.palette.primary.main, display: 'flex', justifyContent: 'flex-start'}} >
+                                <Typography sx={{ margin: { xs: 'auto', lg:0}, color: PrimaryTheme.palette.primary.main, display: 'flex', justifyContent: 'flex-start'}} >
                                     <TwitterIcon /><FollowerCount count={profileInfo.public_metrics.followers_count} />
                                     {profileInfo.url
                                         ? <><LinkIcon /><a className="profile-link" href={profileInfo.url}> {profileInfo.url.replace(/https:\/\/www.|https:\/\//g, '')} </a></>
