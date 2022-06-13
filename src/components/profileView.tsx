@@ -88,7 +88,6 @@ function ProfileView() {
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         const singleValue = queryParams.get('username');
-        console.log('URL Params: ', singleValue);
         if(!singleValue) {
             setFanartList([]);
             setProfileInfo(null);

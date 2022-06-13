@@ -8,7 +8,6 @@ async function ResolveTwitterShortURL(link: string) {
             url: link,
             maxRedirects: 1
         })
-        console.log(resp.data)
         const match = (resp.data as string).match(rgx)[0].replace('">', '');
         return match;
     } catch (e) {
