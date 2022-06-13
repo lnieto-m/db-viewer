@@ -53,13 +53,21 @@ function MainView() {
                         {itemRowList.map((tagName) => {
                             return (
                                 <Button color="primary"
+                                    sx={{
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        '@media (max-width: 480px)': { 
+                                            padding: '3px 3px 3px 3px'
+                                        }}}
                                     disabled={state.loading}
                                     variant={!state.filters[tagName] ? "outlined" : "contained"}
                                     id={tagName}
                                     key={tagName}
                                     onClick={(e) => dispatch({ type: "addTag", payload: e.currentTarget.id}
                                     )}>
-                                        #{tagName}
+                                        <Typography noWrap >
+                                            #{tagName}
+                                        </Typography>
                                     </Button>
                             );
                         })}

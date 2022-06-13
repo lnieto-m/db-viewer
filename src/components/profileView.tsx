@@ -12,6 +12,7 @@ import LinkIcon from '@mui/icons-material/Link';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Box } from '@mui/system';
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 interface ProfileInfo {
     username: string;
@@ -35,6 +36,9 @@ function ProfileView() {
     const [fanartList, setFanartList] = useState<Fanart[]>([]);
     const [profileInfo, setProfileInfo] = useState<ProfileInfo>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const requestFanartList = async (query: string) => {
         try {
@@ -51,10 +55,13 @@ function ProfileView() {
             setProfileInfo(resp.data.userData);
             setFanartList(resp.data.fanartList);
             setLoading(false);
+            setSearchParams({ username: query});
+            // navigate(`?username=${query}`);
         } catch (e) {
             console.error(e);
+            setLoading(false);
+            navigate('');
         }
-        
     }
 
     const requestOptions = async (query: string) => {
@@ -77,6 +84,14 @@ function ProfileView() {
     //         debouncedRequest.cancel();
     //     }
     // }, [debouncedRequest]);
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const singleValue = queryParams.get('username');
+        console.log('URL Params: ', singleValue);
+        if(!singleValue) return;
+        requestFanartList(singleValue);
+    }, []);
 
     const inputChangeHandler = (event, inputValue: string) => {
         setInputValue(inputValue);
@@ -106,7 +121,7 @@ function ProfileView() {
         <ThemeProvider theme={PrimaryTheme}>
             <Autocomplete
                 sx={{ margin: '12px 12px 0px 12px'}}
-                id="test"
+                id="user-search"
                 filterOptions={(x) => x}
                 options={options}
                 color='primary'
@@ -130,8 +145,8 @@ function ProfileView() {
                                 component="img"
                                 sx={{
                                     borderRadius: '50%',
-                                    width: '134px',
-                                    height: '134px',
+                                    width: { xs: '96px', lg: '134px' },
+                                    height: { xs: '96px', lg: '134px' },
                                     margin: { xs: 'auto', lg:0}
                                 }}
                                 src={profileInfo.profile_image_url.replace('normal', '400x400')}
