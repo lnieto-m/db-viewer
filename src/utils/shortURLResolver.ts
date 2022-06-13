@@ -1,7 +1,7 @@
 import axios from "axios";
 
 async function ResolveTwitterShortURL(link: string) {
-    const rgx = /https:\/\/(.+)">/g;
+    const rgx = /(https|http):\/\/(.+)">/g;
     try {
         const resp = await axios({
             method: 'get',

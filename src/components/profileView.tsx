@@ -52,11 +52,11 @@ function ProfileView() {
                 const urlDecoded = await ResolveShortURL(resp.data.userData.url);
                 resp.data.userData.url = urlDecoded;
             }
+            if (inputValue !== query) { setInputValue(query); }
             setProfileInfo(resp.data.userData);
             setFanartList(resp.data.fanartList);
             setLoading(false);
             setSearchParams({ username: query});
-            // navigate(`?username=${query}`);
         } catch (e) {
             console.error(e);
             setLoading(false);
@@ -89,9 +89,14 @@ function ProfileView() {
         const queryParams = new URLSearchParams(location.search);
         const singleValue = queryParams.get('username');
         console.log('URL Params: ', singleValue);
-        if(!singleValue) return;
+        if(!singleValue) {
+            setFanartList([]);
+            setProfileInfo(null);
+            setInputValue('');
+            return;
+        }
         requestFanartList(singleValue);
-    }, []);
+    }, [location.search, location.pathname]);
 
     const inputChangeHandler = (event, inputValue: string) => {
         setInputValue(inputValue);
@@ -175,7 +180,7 @@ function ProfileView() {
                                 <Typography sx={{ margin: { xs: 'auto', lg:0}, color: PrimaryTheme.palette.primary.main, display: 'flex', justifyContent: 'flex-start'}} >
                                     <TwitterIcon /><FollowerCount count={profileInfo.public_metrics.followers_count} />
                                     {profileInfo.url
-                                        ? <><LinkIcon /><a className="profile-link" href={profileInfo.url}> {profileInfo.url.replace(/https:\/\/www.|https:\/\//g, '')} </a></>
+                                        ? <><LinkIcon /><a className="profile-link" href={profileInfo.url}> {profileInfo.url.replace(/(https|http):\/\/www.|(https|http):\/\//g, '')} </a></>
                                         : <></>
                                     }
                                 </Typography>
